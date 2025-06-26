@@ -8,36 +8,94 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 30px;
+      padding: 30px 15px;
       text-align: center;
-      background: #f0f0f0;
+      background: #f7f9fc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 25px;
+    }
+    h1 {
+      color: #333;
+      font-size: 2.4rem;
+      margin-bottom: 5px;
+    }
+    p {
+      color: #555;
+      font-size: 1.1rem;
+      margin-top: 0;
     }
     .form {
       background: white;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-      border-radius: 6px;
+      padding: 25px 20px;
+      max-width: 480px;
+      margin: 0 auto;
+      box-shadow: 0 0 12px rgba(0,0,0,0.08);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
     input, textarea, button {
-      width: 90%;
-      margin: 10px auto;
-      padding: 8px;
-      font-size: 14px;
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 16px;
+      border: 1.8px solid #ccc;
+      border-radius: 6px;
+      outline-offset: 2px;
+      transition: border-color 0.25s ease;
+      box-sizing: border-box;
+    }
+    input:focus, textarea:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0,123,255,0.3);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 90px;
     }
     button {
       background: #007bff;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
     }
     button:hover {
       background: #0056b3;
     }
     .premium-section {
-      margin-top: 30px;
+      max-width: 480px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.06);
+      text-align: left;
+      color: #444;
+    }
+    .premium-section h3 {
+      margin-top: 0;
+      color: #00796b;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+    .premium-section p {
+      margin: 8px 0 15px;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    .premium-section a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .premium-section a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -46,40 +104,44 @@
   <p>Сгенерируйте простой PDF-документ</p>
 
   <div class="form">
-    <input type="text" id="name" placeholder="ФИО">
-    <input type="email" id="email" placeholder="Email">
-    <input type="tel" id="phone" placeholder="Номер телефона">
-    <textarea id="reason" rows="4" placeholder="Причина отпуска"></textarea>
+    <input type="text" id="name" placeholder="ФИО" />
+    <input type="email" id="email" placeholder="Email" />
+    <input type="tel" id="phone" placeholder="Номер телефона" />
+    <textarea id="reason" placeholder="Причина отпуска"></textarea>
     <button onclick="generatePDF()">Скачать PDF</button>
   </div>
 
-  <!-- Промокод и переход в премиум -->
   <div class="premium-section">
     <h3>У вас есть промокод?</h3>
-    <p><b>Если есть то у вас появится полный доступ к PDF и премиум!</b>(Если нету вы можете купить промокод у <a href="https://t.me/samirdavlyatov"><b>Администратора Сайта </b></a>Напишите ему в Telegram)</b></p>
-    <input type="text" id="promo" placeholder="Введите промокод">
-
-  <!-- jsPDF библиотека -->
+    <p>
+      Если есть — получите полный доступ к PDF и премиум-функциям!<br />
+      Если нет — вы можете купить промокод у 
+      <a href="https://t.me/samirdavlyatov" target="_blank" rel="noopener noreferrer">Администратора сайта в Telegram</a>.
+    </p>
+    <input type="text" id="promo" placeholder="Введите промокод" />
     <button onclick="checkPromo()">Перейти в Премиум</button>
   </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
   <script>
     function generatePDF() {
       const doc = new jsPDF('p', 'pt', 'a4');
-
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const phone = document.getElementById("phone").value;
-      const reason = document.getElementById("reason").value;
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const reason = document.getElementById("reason").value.trim();
 
       doc.setFontSize(14);
-      doc.text(40, 40, "Заявление на отпуск");
-      doc.setFontSize(10);
-      doc.text(40, 70, "ФИО: " + name);
-      doc.text(40, 85, "Email: " + email);
-      doc.text(40, 100, "Телефон: " + phone);
-      doc.text(40, 115, "Причина отпуска:");
-      doc.text(40, 130, reason);
+      doc.text("Заявление на отпуск", 40, 40);
+      doc.setFontSize(11);
+      doc.text("ФИО: " + name, 40, 70);
+      doc.text("Email: " + email, 40, 90);
+      doc.text("Телефон: " + phone, 40, 110);
+      doc.text("Причина отпуска:", 40, 130);
+
+      // Разбиваем текст причины на строки по 90 символов примерно
+      let splitReason = doc.splitTextToSize(reason, 500);
+      doc.text(splitReason, 40, 150);
 
       doc.save("otpusk_low_quality.pdf");
     }
