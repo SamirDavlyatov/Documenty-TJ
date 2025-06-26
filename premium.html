@@ -5,17 +5,80 @@
   <title>Stroy Market - Премиум</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body { font-family: Arial, sans-serif; padding: 40px; text-align: center; background: #f9f9f9; }
-    h1 { color: #28a745; }
-    .doc { background: white; margin: 20px auto; padding: 20px; max-width: 600px; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 8px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      text-align: center;
+      background: #f9f9f9;
+    }
+    h1 {
+      color: #28a745;
+    }
+    .form {
+      background: white;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    input, textarea, button {
+      width: 90%;
+      margin: 10px auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
   </style>
 </head>
 <body>
   <h1>🎉 Премиум доступ</h1>
   <p>Теперь вы можете пользоваться полным функционалом сайта.</p>
-  <div class="doc">
-    <h3>PDF-документ</h3>
-    <p><a href="https://example.com/sample.pdf" target="_blank">📄 Открыть PDF</a></p>
+
+  <div class="form">
+    <h3>Форма запроса PDF-документа об отпуске</h3>
+    <input type="text" id="name" placeholder="ФИО" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="tel" id="phone" placeholder="Номер телефона" required>
+    <textarea id="reason" rows="4" placeholder="Причина отпуска" required></textarea>
+    <button onclick="generatePDF()">Скачать PDF</button>
   </div>
+
+  <!-- jsPDF библиотека -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    async function generatePDF() {
+      const {{ jsPDF }} = window.jspdf;
+      const doc = new jsPDF();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const reason = document.getElementById("reason").value;
+
+      doc.setFontSize(16);
+      doc.text("Заявление на отпуск", 20, 20);
+      doc.setFontSize(12);
+      doc.text(`ФИО: ${name}`, 20, 40);
+      doc.text(`Email: ${email}`, 20, 50);
+      doc.text(`Телефон: ${phone}`, 20, 60);
+      doc.text("Причина отпуска:", 20, 70);
+
+      // Разбиваем причину на строки, чтобы не выходить за края
+      const lines = doc.splitTextToSize(reason, 170);
+      doc.text(lines, 20, 80);
+
+      doc.save("otpusk.pdf");
+    }
+  </script>
 </body>
 </html>
