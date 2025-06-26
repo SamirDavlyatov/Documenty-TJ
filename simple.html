@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stroy Market - Простая версия</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; text-align: center; }
+    input, button { padding: 10px; margin: 10px; font-size: 16px; }
+    a { color: #007bff; }
+  </style>
+</head>
+<body>
+  <h1>Бесплатная версия</h1>
+  <p>Вы можете использовать сайт с ограниченными функциями.</p>
+  <p><a href="https://t.me/samirdavlyatov" target="_blank">💳 Перейти в Telegram для оплаты премиум</a></p>
+
+  <h3>Введите код доступа:</h3>
+  <input type="text" id="accessCode" placeholder="Введите промокод">
+  <button onclick="checkCode()">Проверить</button>
+
+  <script>
+    function checkCode() {
+      const code = document.getElementById('accessCode').value.trim();
+      if (code === '25Somoni25') {
+        localStorage.setItem('premium', 'true');
+        alert('✅ Премиум-доступ активирован!');
+        window.location.href = 'premium.html';
+      } else {
+        alert('❌ Неверный код.');
+      }
+    }
+  </script>
+</body>
+</html>
