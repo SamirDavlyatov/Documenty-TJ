@@ -35,6 +35,21 @@
     button:hover {
       background: #0056b3;
     }
+    .premium-btn {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .premium-btn:hover {
+      background-color: #218838;
+    }
   </style>
 </head>
 <body>
@@ -49,7 +64,12 @@
     <button onclick="generatePDF()">Скачать PDF</button>
   </div>
 
-  <!-- Упрощённая версия библиотеки jsPDF -->
+  <!-- Кнопка перехода на премиум -->
+  <p>
+    <a href="premium.html" class="premium-btn">Перейти в Премиум версию</a>
+  </p>
+
+  <!-- jsPDF библиотека -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
   <script>
     function generatePDF() {
