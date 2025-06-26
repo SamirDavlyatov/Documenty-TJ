@@ -35,20 +35,8 @@
     button:hover {
       background: #0056b3;
     }
-    .premium-btn {
+    .premium-section {
       margin-top: 30px;
-      padding: 10px 20px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .premium-btn:hover {
-      background-color: #218838;
     }
   </style>
 </head>
@@ -64,10 +52,12 @@
     <button onclick="generatePDF()">Скачать PDF</button>
   </div>
 
-  <!-- Кнопка перехода на премиум -->
-  <p>
-    <a href="premium.html" class="premium-btn">Перейти в Премиум версию</a>
-  </p>
+  <!-- Промокод и переход в премиум -->
+  <div class="premium-section">
+    <h3>У вас есть промокод?</h3>
+    <input type="text" id="promo" placeholder="Введите промокод">
+    <button onclick="checkPromo()">Перейти в Премиум</button>
+  </div>
 
   <!-- jsPDF библиотека -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
@@ -90,6 +80,16 @@
       doc.text(40, 130, reason);
 
       doc.save("otpusk_low_quality.pdf");
+    }
+
+    function checkPromo() {
+      const promo = document.getElementById("promo").value.trim();
+      if (promo === "25Somoni25") {
+        alert("✅ Промокод принят! Переход в Премиум...");
+        window.location.href = "premium.html";
+      } else {
+        alert("❌ Неверный промокод. Попробуйте снова.");
+      }
     }
   </script>
 </body>
