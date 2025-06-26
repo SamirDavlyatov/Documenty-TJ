@@ -6,13 +6,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="https://avatars.mds.yandex.net/i?id=b1884963560a27c5a22c1b10458728e608b33949-5391086-images-thumbs&n=13" type="image/x-icon">
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-    a.button { display: inline-block; padding: 12px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; font-size: 18px; }
-    a.button:hover { background: #0056b3; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #e0f7fa, #80deea);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+    }
+    h1 {
+      color: #00796b;
+      font-weight: 700;
+      font-size: 2.8rem;
+      margin: 0;
+    }
+    a.button {
+      display: inline-block;
+      padding: 14px 28px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,123,255,0.4);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    a.button:hover {
+      background: #0056b3;
+      box-shadow: 0 6px 14px rgba(0,86,179,0.6);
+    }
+    .promo-section {
+      max-width: 320px;
+      width: 100%;
+      background: white;
+      padding: 20px 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    .promo-section h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: #004d40;
+    }
+    .promo-section input {
+      width: 100%;
+      padding: 12px 10px;
+      margin: 15px 0;
+      font-size: 16px;
+      border: 2px solid #00796b;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    .promo-section input:focus {
+      border-color: #004d40;
+    }
+    .promo-section button {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      background-color: #00796b;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .promo-section button:hover {
+      background-color: #004d40;
+    }
+    .promo-success {
+      color: #2e7d32;
+      font-weight: 700;
+      margin-top: 10px;
+      display: none;
+    }
   </style>
 </head>
 <body>
+
   <h1>Добро пожаловать в Документы PDF</h1>
+
+  <div class="promo-section">
+    <h2>Введите промокод для премиум-доступа</h2>
+    <input type="text" id="promo-input" placeholder="Промокод">
+    <button onclick="checkPromo()">Подтвердить</button>
+    <p id="promo-success" class="promo-success">Промокод принят! Перейдите в премиум-версию.</p>
+  </div>
+
   <p><a class="button" href="simple.html">Перейти к бесплатной версии</a></p>
+  <p><a id="premium-link" class="button" href="premium.html" style="display:none;">Перейти к премиум-версии</a></p>
+
+<script>
+  const correctPromo = "25Somoni25";
+
+  function checkPromo() {
+    const input = document.getElementById('promo-input');
+    const success = document.getElementById('promo-success');
+    const premiumLink = document.getElementById('premium-link');
+    if (input.value.trim() === correctPromo) {
+      success.style.display = 'block';
+      premiumLink.style.display = 'inline-block';
+      input.disabled = true;
+    } else {
+      alert('Неверный промокод. Попробуйте ещё раз.');
+      success.style.display = 'none';
+      premiumLink.style.display = 'none';
+    }
+  }
+</script>
+
 </body>
 </html>
