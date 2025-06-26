@@ -16,12 +16,10 @@
       align-items: center;
       min-height: 100vh;
     }
-
     h1 {
       margin-top: 40px;
       color: #28a745;
     }
-
     .form, .promo-form {
       background: white;
       padding: 20px;
@@ -31,7 +29,6 @@
       border-radius: 10px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
-
     input, textarea, button {
       width: 95%;
       padding: 12px;
@@ -40,7 +37,6 @@
       border: 1px solid #ccc;
       border-radius: 6px;
     }
-
     button {
       background-color: #28a745;
       color: white;
@@ -48,19 +44,15 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-
     button:hover {
       background-color: #218838;
     }
-
     #pdf-content {
       display: none;
     }
-
     .hidden {
       display: none;
     }
-
     p#success {
       color: green;
       font-weight: bold;
@@ -68,18 +60,13 @@
   </style>
 </head>
 <body>
-
   <h1>🎉 Премиум доступ</h1>
   <p id="welcome-msg" class="hidden">Теперь вы можете пользоваться полным функционалом сайта.</p>
-
-  <!-- Промокод -->
   <div class="promo-form" id="promo-section">
     <h3>Введите промокод для доступа:</h3>
     <input type="text" id="promo-input" placeholder="Введите промокод">
     <button onclick="checkPromo()">Подтвердить</button>
   </div>
-
-  <!-- Основная форма -->
   <div class="form hidden" id="main-form">
     <h3>Форма отпуска</h3>
     <input type="text" id="name" placeholder="ФИО">
@@ -88,8 +75,6 @@
     <textarea id="reason" placeholder="Причина отпуска" rows="4"></textarea>
     <button onclick="generatePDF()">Скачать PDF</button>
   </div>
-
-  <!-- Контент для PDF -->
   <div id="pdf-content">
     <h2 style="text-align: center;">Заявление на отпуск</h2>
     <p><strong>ФИО:</strong> <span id="out-name"></span></p>
@@ -98,33 +83,29 @@
     <p><strong>Причина отпуска:</strong></p>
     <p id="out-reason"></p>
   </div>
-
-  <!-- Подключаем html2pdf.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     const correctPromo = "25Somoni25";
-
     function checkPromo() {
-      const promo = document.getElementById("promo-input").value.trim();
+      const promoInput = document.getElementById("promo-input");
+      const promo = promoInput.value.trim();
       if (promo === correctPromo) {
         document.getElementById("promo-section").classList.add("hidden");
         document.getElementById("main-form").classList.remove("hidden");
         document.getElementById("welcome-msg").classList.remove("hidden");
         alert("✅ Промокод принят! Добро пожаловать в премиум.");
+        promoInput.value = "";
       } else {
         alert("❌ Неверный промокод.");
       }
     }
-
     function generatePDF() {
       document.getElementById("out-name").innerText = document.getElementById("name").value;
       document.getElementById("out-email").innerText = document.getElementById("email").value;
       document.getElementById("out-phone").innerText = document.getElementById("phone").value;
       document.getElementById("out-reason").innerText = document.getElementById("reason").value;
-
       const element = document.getElementById("pdf-content");
       element.style.display = "block";
-
       html2pdf().set({
         margin: 10,
         filename: "otpusk-premium.pdf",
